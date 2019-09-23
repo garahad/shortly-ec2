@@ -5,7 +5,7 @@
 이번 Sprint에서 더 개선이 필요하다고 느끼는 항목을 선택해주세요.([ ]안에 알파벳 소문자 x를 입력해주세요)
 
 - [ ] Sessions
-- [ ] Learnco 학습자료
+- [x] Learnco 학습자료
 - [ ] Sprint Code
 - [ ] 운영
 - [ ] etc
