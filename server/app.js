@@ -47,6 +47,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/user/signup', (req, res) => {
+	//기존에 user가 있으면 그냥 뱉기.
+
 	const { email, username, password } = req.body;
 	let ciphertext = cryptoJS.AES.encrypt(password.toString(), email);
 
@@ -227,26 +229,14 @@ app.listen(app.get('port'));
 
 module.exports = app;
 
-// reference 코드 보고 bare minimum 의 의미를 파악하기.
-// 로그아웃을 서버와 통신하여 처리하세요
-// Client와 Server와의 Session을 활성화( 로그인 ), 비활성화( 로그아웃 ) 하세요. 로그인 아웃에 따라 session storage의 변화가 없는데??
-
 // res.json(user); 이런식으로 server status 숫자 안 보내고, 메세지만 보내도 되는 건가?
 // 혹은 res.status(404) 이렇게만 써도 되는건가? res.status(404).end() 이렇게 안 붙이고?
 
 // client 를 3000번 포트에서 띄우는 과정이 어디에??
 
 // 코드 전반적인 돌아가는 것에 대한 이해
-// 크롬 application localstorage등 생겼다 지웠다 하면서 변경해보기.
-// advanced, toy, 종이정리, 강의 동영상, dd...backend HA 시험도 있으므로 복습.
 
 // 어떻게 로그인 정보 세션 아이디를 저장하게 되는가 그 부분 설정 --> session store 통해서 redis.
-
-// 로그인이나 로그인 아웃정보가 창 껐을때 로그아웃 했을때 유지되는지 여부??
-// ㅡ 원래 이게 돼야하는데 localstorage에 저장해놔서 안된다??
-
-// 어차피 클라이언트가 하나니까 세션 의미가 없는건가? 창이나 크롬 끄고 키고 유무 ㅡ
-// session storage에 저장해놓고 , tab 껐다 켰다, npm start 껐다 켰다 반복 ?
 
 // 세션 아이디로 유저인지 아닌지 확인해줘야하지 않나? ㅡ 세션 아이디로 감별하는거 코드로 어떻게 구현할수있지?
 
@@ -255,3 +245,15 @@ module.exports = app;
 // HTTP 요청은 기본적으로 Cross-Site HTTP Requests가 가능합니다. 다시 말하면, <img> 태그로 다른 도메인의 이미지 파일을 가져오거나, <link> 태그로 다른 도메인의 CSS를 가져오거나, <script> 태그로 다른 도메인의 JavaScript 라이브러리를 가져오는 것이 모두 가능합니다. 하지만 <script></script>로 둘러싸여 있는 스크립트에서 생성된 Cross-Site HTTP Requests는 Same Origin Policy를 적용 받기 때문에 Cross-Site HTTP Requests가 불가능합니다. 즉, 프로토콜, 호스트명, 포트가 같아야만 요청이 가능합니다. --->  img를 가져오는 거나, http 통해서 가져오는 것에 차이가 나는 이유는???
 
 //development mode일 때는 react dev tools 이용 못 하는 현상
+
+// Advanced Challenges
+// Signup을 위한 클라이언트 페이지를 생성하고 회원가입 API를 처리할 수 있도록 개선하세요
+// JWT(jsonwebtoken)를 사용하여 클라이언트에서 유저 토큰으로 서버와 상호작용하게 개선하세요
+// Url을 해당 url을 저장한 유저 별로 관리할 수있도록 모델과 API, 클라이언트를 개선하세요
+// 사용자 지정 오류에 대응 하세요
+// 문제가 일어났을 경우 사용자에게 알리는방법을 자유롭게 하여도 좋습니다
+// system 오류가 일어났을 때에는 단순히 알려주면 되지만 오류가 아닌 사전에 확인이 가능한오류들(비밀번호 잘못 입력, 잘못된 url 형식, 존재하지 않는 페이지) 등은 사용자가 안내를 보고 수정할 수 있도록 처리해주세요
+// 클라이언트 내에 관리되는 모든 state를 Redux에서 관리하세요
+// 1분 간격으로 리스트의 정보가 자동적으로 갱신되도록 개선하세요
+// 사이트를 여러분의 마음 가는대로 예쁘게 만드세요
+// css, scss, styled-component 등 무엇을 이용해도 상관없습니다
