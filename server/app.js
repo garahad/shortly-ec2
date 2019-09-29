@@ -33,7 +33,8 @@ app.use(
 		// 	return callback(null, true);
 		// },
 		// optionsSuccessStatus: 200,
-		origin: 'http://localhost:3000',
+		// origin: 'http://localhost:3000',
+		origin: 'http://49.161.97.41:3000',
 		credentials: true,
 	}),
 	//credentials가 있으면 Access-Control-Allow-Origin: * 가 안되고 따로 허용하는 애들 특정해줘야 함. 근데 위 code로 되는 이유? credentials에 대해서도 공부 & 특정한 애들만 되게 하는 것에 대해서도 찾아보기. + 여기도 더 간편하게 설정하기.
