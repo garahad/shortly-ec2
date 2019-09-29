@@ -100,7 +100,7 @@ app.post('/user/signin', (req, res) => {
 		})
 		.catch(err => {
 			console.log(err);
-			res.status(500);
+			res.status(500).end();
 		});
 });
 /**
@@ -138,7 +138,8 @@ app.get('/user/info', (req, res) => {
 				if (result) {
 					res.status(200).json(result.dataValues);
 				} else {
-					res.status(204);
+					res.status(204).send('no user data');
+					// 뒤에 end같은 것 안 붙이면 어떻게 되는거지? 계속 연결된 상태로 기다리나?
 				}
 			})
 			.catch(err => {
@@ -162,7 +163,7 @@ app.get('/links', (req, res) => {
 				res.status(200).json(result); // OK
 				//.json(result)는 모지??
 			} else {
-				res.sendStatus(204); // No Content..... sendStatus vs status
+				res.sendStatus(204); // No Content.....
 			}
 		})
 		.catch(error => {
@@ -229,16 +230,15 @@ app.listen(app.get('port'));
 
 module.exports = app;
 
-// res.json(user); 이런식으로 server status 숫자 안 보내고, 메세지만 보내도 되는 건가?
-// 혹은 res.status(404) 이렇게만 써도 되는건가? res.status(404).end() 이렇게 안 붙이고?
+// res.json(user); 이런식으로 server status 숫자 안 보내고, 메세지만 보내도 되는 건가? 모르겠음. express의 res.json 예시에는 숫자 안쓰고도 보내는듯 (이렇게 하면 알아서 알맞는 숫자로 넣어주나?)
+// 혹은 res.status(404) 이렇게만 써도 되는건가? res.status(404).end() 이렇게 안 붙이고? 이건 아마 안 되는 듯.
 
 // client 를 3000번 포트에서 띄우는 과정이 어디에??
-
 // 코드 전반적인 돌아가는 것에 대한 이해
 
 // 어떻게 로그인 정보 세션 아이디를 저장하게 되는가 그 부분 설정 --> session store 통해서 redis.
 
-// 세션 아이디로 유저인지 아닌지 확인해줘야하지 않나? ㅡ 세션 아이디로 감별하는거 코드로 어떻게 구현할수있지?
+// 세션 아이디로 유저인지 아닌지 확인해줘야하지 않나? ㅡ 세션 아이디로 감별하는거 코드로 어떻게 구현할수있지? 아마 sid를 보고 그에 맞는 session을 찾아주는 것은 내부적으로 구현되어 있지 않을까 싶음. 즉, 알아서 우리 sid를 보고 그에 맞는 session 가져오면 그 session에 유저 정보가 들어있는 식. 그럼 로그아웃 했다가 로그인해서 다시 새 session id 발급받았을때 원래 이 client가 갖고 있던 정보랑 이 client를 어떻게 매치시키지? sid가 바꼈을텐데... 아마 session을 로그인때만 쓰고, dB에 저장은 아이디 같은 걸로해서 아이디가 같으면 매칭시키고 그런식으로 하나?
 
 // redux thunk ㅡ orm associate
 
